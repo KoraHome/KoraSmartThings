@@ -28,9 +28,9 @@ preferences {
 	section ("On time..."){
     		input "theTime", "time", title: "Time to execute every day"
 	}
-	section("On which Days?") {
-		input "dayOfWeek", "enum", title:"Select Days", required: true, multiple:true, metadata: [values: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']]
-	}
+//	section("On which Days?") {
+//		input "dayOfWeek", "enum", title:"Select Days", required: true, multiple:true, metadata: [values: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']]
+//	}
     	section ("Turn on these devices"){
     		input "theSwitches", "capability.switch", multiple:true
 	}
@@ -55,14 +55,14 @@ def initialize() {
 
 // called every day at the time specified by the user
 def handler() {
-	def dayCheck = dayOfWeek.contains(new Date().format("EEE"))
-	if(dayCheck){
+	//def dayCheck = dayOfWeek.contains(new Date().format("EEE"))
+	//if(dayCheck){
     		theSwitches.on()
-	}
+	//}
 }
 def offHandler() {
-	def dayCheck = dayOfWeek.contains(new Date().format("EEE"))
-	if(dayCheck){
+	//def dayCheck = dayOfWeek.contains(new Date().format("EEE"))
+	//if(dayCheck){
     		theSwitches.off()
-	}
+	//}
 }
