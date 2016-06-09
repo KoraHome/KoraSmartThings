@@ -37,24 +37,24 @@ preferences {
 }
 
 def installed() {
-	subscribe(presence1, "presence", presenceHandler)
+	subscribe(presence, "presence", presenceHandler)
 	subscribe(location, "sunset", presenceHandler)
     subscribe(location, "sunrise", presenceHandler)
 }
 
 def updated() {
 	unsubscribe()
-	subscribe(presence1, "presence", presenceHandler)
+	subscribe(presence, "presence", presenceHandler)
 	subscribe(location, "sunset", presenceHandler)
     subscribe(location, "sunrise", presenceHandler)
 }
 
-def presenceHandler(evt){
+def presenceHandler(){
 	
 	def now = new Date()
 	def sunTime = getSunriseAndSunset()
 	def sunsOut = null
-	def current = presence1.currentValue("presence")
+	def currentPresence = presence.currentValue("presence")
 
 	if ((now > sunTime.sunrise) && (now < sunTime.sunset)){
 		sunsOut = 1
@@ -63,13 +63,13 @@ def presenceHandler(evt){
     		sunsOut = 0 
     	}
     	
-	def presenceValue = presence1.find{it.currentPresence == "not present"}
-
+	def presenceValue = presence.find{it.currentPresence == "present"}
+		log.debug "presenceValue = ${presenceValue}"
         
 	if(presenceValue && (sunsOut == 0)) {
-		switch1.on()
-		log.debug "It's night time. Someone isn't home. Turning on lights."
+		log.debug "It's night time. Everyone is home. Do nothing."
 	}
+	
 	else if(presenceValue && (sunsOut == 1)) {
     	log.debug "It's day time. Someone isn't home. Turning lights off."
         switch1.off()
