@@ -26,7 +26,7 @@ definition(
 
 preferences {
 	section("When someone isn't home after sunset...") {
-		input "presence1", "capability.presenceSensor", title: "Who?", multiple: true
+		input "presence", "capability.presenceSensor", title: "Who?", multiple: true
 	}
 	section("Turn on a light..."){
 		input "switch1", "capability.switch", multiple: true
